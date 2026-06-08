@@ -1,0 +1,45 @@
+# 微服务节点
+- class: node
+  id: frontend
+  type: Frontend
+  metrics:
+    - frontend##frontend_response_time
+    - frontend##frontend_memory_bytes
+    - frontend##frontend_restart
+    - frontend##frontend_cpu
+    - frontend##frontend_qps
+    - frontend##frontend_error_rate
+    - frontend##frontend_network_in
+
+- class: node
+  id: orders
+  type: Orders
+  metrics:
+    - orders##orders_response_time
+    - orders##orders_restart
+    - orders##orders_cpu
+    - orders##orders_qps
+    - orders##orders_error_rate
+    - orders##orders_network_in
+
+- class: node
+  id: catalogue
+  type: Catalogue
+  metrics:
+    - catalogue##catalogue_response_time
+    - catalogue##catalogue_restart
+    - catalogue##catalogue_cpu
+    - catalogue##catalogue_qps
+    - catalogue##catalogue_error_rate
+    - catalogue##catalogue_network_in
+
+# 微服务调用关系
+- class: edge
+  src: frontend
+  dst: orders
+  type: call
+
+- class: edge
+  src: orders
+  dst: catalogue
+  type: call
