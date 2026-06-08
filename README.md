@@ -227,8 +227,6 @@ DejaVu 模型复现成功，在自定义数据集上 **A@3=100%**，可用于实
 
 # 8\. 引用
 
-plaintext
-
 ```Plain Text
 @inproceedings{li2022actionable,
   title={Actionable and Interpretable Fault Localization for Recurring Failures in Online Service Systems},
