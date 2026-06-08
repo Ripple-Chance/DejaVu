@@ -113,7 +113,27 @@ class MetricPreprocessor:
         start_ts = fault_ts - window_size[0] * self._granularity
         length = sum(window_size)
         timestamp_list = [start_ts + i * self._granularity for i in range(length)]
-        ts_idx = np.asarray([self._timestamp_2_idx[_] for _ in timestamp_list])
+        
+        # 使用最近邻查找解决时间戳不匹配问题
+        all_timestamps = self.timestamps  # 已经是排序好的数组
+        ts_idx = []
+        for ts in timestamp_list:
+            # 找到最接近的时间戳
+            closest_idx = np.searchsorted(all_timestamps, ts)
+            if closest_idx == 0:
+                closest_ts = all_timestamps[0]
+            elif closest_idx == len(all_timestamps):
+                closest_ts = all_timestamps[-1]
+            else:
+                left_ts = all_timestamps[closest_idx - 1]
+                right_ts = all_timestamps[closest_idx]
+                if ts - left_ts < right_ts - ts:
+                    closest_ts = left_ts
+                else:
+                    closest_ts = right_ts
+            ts_idx.append(self._timestamp_2_idx[closest_ts])
+        
+        ts_idx = np.asarray(ts_idx)
         return ts_idx
 
     @lru_cache(maxsize=None)
