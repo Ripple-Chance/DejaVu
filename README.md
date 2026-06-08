@@ -119,15 +119,17 @@ metrics_df.to_pickle('metrics.norm.pkl')
 
 ## 官方数据集
 
-提供 SockShop 等微服务故障数据集，包含：
+A1,A2,B,C,D
+
+## 自定义数据集
+
+SockShop 等微服务故障数据集，包含：
 
 - graph\.yml：服务调用图
 
 - metrics\.csv：监控指标
 
 - faults\.csv：故障标签
-
-## 自定义数据集
 
 - 服务数量：3 个（frontend、orders、catalogue）
 
